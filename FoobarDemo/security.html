@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security – Drift</title>
+    <meta name="description"
+        content="Bank-grade encryption, AI risk engine, transparent fees, and a growth projection calculator." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span><span class="logo-text">Drift</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="invest.html">Invest</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="security.html" class="nav-active">Security</a></li>
+                <li><a href="join.html">Join</a></li>
+            </ul>
+            <div class="nav-cta"><a href="join.html" class="btn-nav">Get Early Access</a></div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Page Hero Banner -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="section-label">Security & Trust</div>
+            <h1 class="section-title">Built Like A <span class="gradient-text">Vault</span></h1>
+            <p class="section-sub">Your money deserves Fort Knox-level protection. We deliver it — and show our work.
+            </p>
+        </div>
+    </div>
+
+    <!-- ── SECURITY CARDS ── -->
+    <section class="section security-section" id="security">
+        <div class="container">
+            <div class="security-grid">
+                <div class="security-card glass-card" data-reveal>
+                    <div class="security-icon">🔐</div>
+                    <h4>Bank-Grade Encryption</h4>
+                    <p>AES-256 encryption + TLS 1.3. The same protection standard used by top banks worldwide.</p>
+                </div>
+                <div class="security-card glass-card" data-reveal>
+                    <div class="security-icon">🤖</div>
+                    <h4>AI Risk Engine</h4>
+                    <p>Machine learning scans 10,000+ data points per second to detect anomalies and protect your
+                        portfolio.</p>
+                </div>
+                <div class="security-card glass-card" data-reveal>
+                    <div class="security-icon">💸</div>
+                    <h4>Transparent Fee Model</h4>
+                    <p>0% platform fee for students. Only 0.5% on profits above ₹5,000. Zero hidden charges. Ever.</p>
+                </div>
+                <div class="security-card glass-card" data-reveal>
+                    <div class="security-icon">🔮</div>
+                    <h4>Non-Custodial Roadmap</h4>
+                    <p>True ownership coming in 2026. Your keys, your crypto — we're building toward full
+                        decentralization.</p>
+                </div>
+            </div>
+
+            <!-- Trust Bar -->
+            <div class="trust-bar glass-card">
+                <div class="trust-item">
+                    <span class="trust-val" id="tv1">12,000+</span>
+                    <span class="trust-label">Active Users</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-val" id="tv2">₹2.4Cr</span>
+                    <span class="trust-label">Total Invested</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-val" id="tv3">99.9%</span>
+                    <span class="trust-label">Uptime</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-val">4.8⭐</span>
+                    <span class="trust-label">User Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CALCULATOR ── -->
+    <section class="section calc-section" id="calculator">
+        <div class="container">
+            <div class="section-label">Growth Projection</div>
+            <h2 class="section-title">See Your <span class="gradient-text">Future Portfolio</span></h2>
+            <p class="section-sub">Adjust your daily investment and watch your future wealth build in real time.</p>
+
+            <div class="calc-card glass-card">
+                <div class="calc-controls">
+                    <div class="calc-input-group">
+                        <label>Daily Investment</label>
+                        <div class="range-wrap">
+                            <input type="range" id="dailyAmount" min="10" max="500" value="10" step="10"
+                                class="range-input" />
+                            <div class="range-value">₹<span id="dailyDisplay">10</span>/day</div>
+                        </div>
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Expected Annual Return</label>
+                        <div class="range-wrap">
+                            <input type="range" id="returnRate" min="5" max="40" value="15" step="1"
+                                class="range-input" />
+                            <div class="range-value"><span id="returnDisplay">15</span>% p.a.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="calc-result-item">
+                        <span class="result-label">After 1 Year</span>
+                        <span class="result-value" id="year1">₹3,942</span>
+                    </div>
+                    <div class="calc-result-item highlight">
+                        <span class="result-label">After 3 Years</span>
+                        <span class="result-value gradient-text" id="year3">₹14,280</span>
+                    </div>
+                    <div class="calc-result-item">
+                        <span class="result-label">After 5 Years</span>
+                        <span class="result-value" id="year5">₹26,984</span>
+                    </div>
+                </div>
+
+                <div class="bar-chart">
+                    <div class="bar-group">
+                        <div class="bar bar-1" id="bar1"></div>
+                        <span class="bar-label">1Y</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar bar-2" id="bar2"></div>
+                        <span class="bar-label">3Y</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar bar-3" id="bar3"></div>
+                        <span class="bar-label">5Y</span>
+                    </div>
+                </div>
+                <p class="calc-disclaimer">*Projections are illustrative and not financial advice. Crypto markets are
+                    volatile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page nav -->
+    <div style="text-align:center;padding-bottom:80px;position:relative;z-index:2">
+        <a href="join.html" class="btn-primary">
+            Claim Your Spot
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><span class="logo-icon">⬡</span><span class="logo-text">Drift</span></div>
+            <div class="footer-links">
+                <a href="index.html">Home</a><a href="invest.html">Invest</a>
+                <a href="learn.html">Learn</a><a href="security.html">Security</a><a href="join.html">Join</a>
+            </div>
+            <p class="footer-disclaimer">Cryptocurrency investments are subject to market risks. This platform is not
+                SEBI registered. Please read all risk disclosures carefully before investing.</p>
+            <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

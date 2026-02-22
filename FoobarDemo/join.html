@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Drift – Get Early Access</title>
+    <meta name="description"
+        content="Turn everyday spending into digital assets. Join 12,000+ students on the Drift waitlist." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span><span class="logo-text">Drift</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="invest.html">Invest</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="security.html">Security</a></li>
+                <li><a href="join.html" class="nav-active">Join</a></li>
+            </ul>
+            <div class="nav-cta"><a href="#waitlist" class="btn-nav">Get Early Access</a></div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- ── FINAL CTA SECTION ── -->
+    <section class="section cta-section" id="waitlist" style="min-height:100vh;display:flex;align-items:center;">
+        <div class="container">
+            <div class="cta-glow"></div>
+            <div class="cta-content">
+                <div class="section-label float-anim">Join the Movement</div>
+                <h1 class="section-title">Turn Everyday Spending<br />Into <span class="gradient-text">Digital
+                        Assets</span></h1>
+                <p class="section-sub">Be among the first 15,000 students to access Drift. Limited early-access spots
+                    available — secured on a first-come basis.</p>
+
+                <!-- Social proof -->
+                <div class="social-proof">
+                    <div class="avatar-stack">
+                        <div class="avatar av1">A</div>
+                        <div class="avatar av2">P</div>
+                        <div class="avatar av3">R</div>
+                        <div class="avatar av4">S</div>
+                        <div class="avatar av5">K</div>
+                    </div>
+                    <span><strong>12,400+</strong> students already on the waitlist</span>
+                </div>
+
+                <!-- Perks -->
+                <div class="join-perks">
+                    <div class="perk">
+                        <span class="perk-icon">🎁</span>
+                        <div>
+                            <strong>Early Access</strong>
+                            <p>Be first in your city to invest</p>
+                        </div>
+                    </div>
+                    <div class="perk">
+                        <span class="perk-icon">📚</span>
+                        <div>
+                            <strong>Free Learning Bundle</strong>
+                            <p>₹499 course, free for waitlist members</p>
+                        </div>
+                    </div>
+                    <div class="perk">
+                        <span class="perk-icon">💰</span>
+                        <div>
+                            <strong>Zero Fees for 6 Months</strong>
+                            <p>No platform fees on your first ₹10,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Waitlist Form -->
+                <div class="waitlist-form glass-card" id="waitlistForm">
+                    <h3 style="margin-bottom:20px;font-size:20px;font-weight:700;">Claim Your Spot</h3>
+                    <div class="form-row">
+                        <input type="text" id="nameInput" placeholder="Your Name" class="form-input" />
+                        <input type="email" id="emailInput" placeholder="College Email" class="form-input" />
+                    </div>
+                    <div class="form-row">
+                        <select class="form-input form-select" id="collegeSelect">
+                            <option value="">I'm a...</option>
+                            <option>College Student</option>
+                            <option>Recent Graduate</option>
+                            <option>Young Professional</option>
+                            <option>Just Curious</option>
+                        </select>
+                        <input type="text" id="cityInput" placeholder="Your City" class="form-input" />
+                    </div>
+                    <button class="btn-primary btn-submit" onclick="submitWaitlist(event)">
+                        <span>🚀 Claim My Spot</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                    <p class="form-note">🔒 No spam. No credit card. Unsubscribe anytime.</p>
+                </div>
+
+                <!-- Success -->
+                <div class="success-msg" id="successMsg" style="display:none;">
+                    <div class="success-icon">🎉</div>
+                    <h3>You're on the list!</h3>
+                    <p>We'll notify you when Drift launches in your city. Share with a friend to move up the waitlist!
+                    </p>
+                    <div class="share-btns">
+                        <button class="btn-share" onclick="shareOnWhatsApp()">📱 WhatsApp</button>
+                        <button class="btn-share" onclick="shareOnTwitter()">🐦 Twitter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="section" style="padding-top:0">
+        <div class="container" style="max-width:720px">
+            <h2 class="section-title" style="text-align:center;margin-bottom:40px">Frequently Asked <span
+                    class="gradient-text">Questions</span></h2>
+            <div class="faq-list">
+                <div class="faq-item glass-card">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        Is my money safe on Drift? <span class="faq-arrow">↓</span>
+                    </button>
+                    <div class="faq-a">
+                        <p>Yes. We use AES-256 bank-grade encryption. Your funds are held with regulated custodians and
+                            protected by our AI Volatility Shield. <a href="security.html">Learn more about security
+                                →</a></p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        Do I need a PAN card or KYC? <span class="faq-arrow">↓</span>
+                    </button>
+                    <div class="faq-a">
+                        <p>Yes, Indian regulations require a basic KYC (Aadhaar + PAN) to invest. The process takes
+                            under 3 minutes entirely online.</p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        What if I want to withdraw my money? <span class="faq-arrow">↓</span>
+                    </button>
+                    <div class="faq-a">
+                        <p>Withdrawals are processed within 2–3 business days directly to your linked bank account. No
+                            lock-in period, no exit fees.</p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        What is the tax on crypto profits in India? <span class="faq-arrow">↓</span>
+                    </button>
+                    <div class="faq-a">
+                        <p>As per Indian tax law, crypto profits are taxed at a flat 30% + 1% TDS on each transaction.
+                            Drift auto-generates your tax report. <a href="learn.html">Learn more →</a></p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        When does Drift officially launch? <span class="faq-arrow">↓</span>
+                    </button>
+                    <div class="faq-a">
+                        <p>We're targeting a beta rollout in Q3 2025. Waitlist members in metro cities get priority
+                            access first. Join now to secure your spot!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><span class="logo-icon">⬡</span><span class="logo-text">Drift</span></div>
+            <p class="footer-tagline">Making crypto investing a college habit.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a><a href="invest.html">Invest</a>
+                <a href="learn.html">Learn</a><a href="security.html">Security</a>
+            </div>
+            <p class="footer-disclaimer">Drift is a financial technology platform. Cryptocurrency investments are
+                subject to market risks. Past performance does not guarantee future results. This platform is not SEBI
+                registered. Please read all risk disclosures carefully before investing.</p>
+            <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd. Made with ♥ for India's next generation
+                investors.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+    </script>
+</body>
+
+</html>

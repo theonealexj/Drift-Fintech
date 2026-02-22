@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn – Drift</title>
+    <meta name="description"
+        content="Bite-sized crypto lessons. Learn what stablecoins are, what moves Bitcoin, how regulations work, and more." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span><span class="logo-text">Drift</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="invest.html">Invest</a></li>
+                <li><a href="learn.html" class="nav-active">Learn</a></li>
+                <li><a href="security.html">Security</a></li>
+                <li><a href="join.html">Join</a></li>
+            </ul>
+            <div class="nav-cta"><a href="join.html" class="btn-nav">Get Early Access</a></div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Page Hero Banner -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="section-label">Learning Hub</div>
+            <h1 class="section-title">Knowledge Is Your<br /><span class="gradient-text">Best Asset</span></h1>
+            <p class="section-sub">Short, punchy lessons that make you smarter with every rupee you invest.</p>
+        </div>
+    </div>
+
+    <!-- ── LEARN CARDS ── -->
+    <section class="section" id="learn">
+        <div class="container">
+
+            <!-- Category filter -->
+            <div class="learn-filters">
+                <button class="filter-btn active" data-filter="all">All Topics</button>
+                <button class="filter-btn" data-filter="basics">Basics</button>
+                <button class="filter-btn" data-filter="bitcoin">Bitcoin</button>
+                <button class="filter-btn" data-filter="defi">DeFi</button>
+                <button class="filter-btn" data-filter="strategy">Strategy</button>
+            </div>
+
+            <div class="learn-grid" id="learnGrid">
+                <div class="learn-card glass-card float-card" data-delay="0" data-cat="basics">
+                    <div class="learn-emoji">💵</div>
+                    <div class="learn-tag">Stablecoins</div>
+                    <h4>What is a Stablecoin?</h4>
+                    <p>USDC and USDT are pegged 1:1 to the US Dollar. Less risk, more stability. Perfect for beginners.
+                    </p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 2 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="100" data-cat="bitcoin">
+                    <div class="learn-emoji">📊</div>
+                    <div class="learn-tag">Bitcoin</div>
+                    <h4>What Affects Bitcoin Price?</h4>
+                    <p>Supply halving, whale movements, macro news — learn the forces that move BTC up and down.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 3 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="200" data-cat="basics">
+                    <div class="learn-emoji">⚖️</div>
+                    <div class="learn-tag">Regulations</div>
+                    <h4>How Regulations Impact Crypto</h4>
+                    <p>India's crypto tax rules, global bans, and what they mean for your portfolio strategy in 2025.
+                    </p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 4 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="300" data-cat="basics">
+                    <div class="learn-emoji">🔑</div>
+                    <div class="learn-tag">Wallets</div>
+                    <h4>Custodial vs Non-Custodial</h4>
+                    <p>Who actually owns your crypto? Understanding wallet types and private keys explained simply.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 3 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="400" data-cat="defi">
+                    <div class="learn-emoji">🔄</div>
+                    <div class="learn-tag">DeFi</div>
+                    <h4>What is DeFi?</h4>
+                    <p>Decentralized Finance explained simply — earn yield without a traditional bank. The future of
+                        money.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 5 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="500" data-cat="strategy">
+                    <div class="learn-emoji">🧮</div>
+                    <div class="learn-tag">SIP Math</div>
+                    <h4>Power of Daily ₹10</h4>
+                    <p>Compound growth visualized — see how small investments snowball over 1, 3, and 5 years.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 2 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="0" data-cat="bitcoin">
+                    <div class="learn-emoji">📉</div>
+                    <div class="learn-tag">Bitcoin</div>
+                    <h4>Bitcoin Halving Explained</h4>
+                    <p>Every 4 years, Bitcoin's supply is cut in half. Here's what that means for the price
+                        historically.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 3 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="100" data-cat="defi">
+                    <div class="learn-emoji">🌾</div>
+                    <div class="learn-tag">DeFi</div>
+                    <h4>Yield Farming 101</h4>
+                    <p>Earn passive income on your crypto holdings. What is APY and how to compare farming
+                        opportunities.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 4 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+                <div class="learn-card glass-card float-card" data-delay="200" data-cat="strategy">
+                    <div class="learn-emoji">🧠</div>
+                    <div class="learn-tag">Strategy</div>
+                    <h4>Dollar-Cost Averaging (DCA)</h4>
+                    <p>Why investing a fixed amount regularly beats trying to time market highs and lows.</p>
+                    <div class="learn-footer">
+                        <span class="learn-time">⏱ 3 min read</span>
+                        <span class="learn-read">Read →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Tracker -->
+    <section class="section" style="padding-top:0">
+        <div class="container">
+            <div class="progress-card glass-card">
+                <div class="progress-header">
+                    <div>
+                        <h3>Your Learning Progress</h3>
+                        <p style="color:var(--text-secondary);font-size:14px">Join Drift to track your lessons and earn
+                            XP</p>
+                    </div>
+                    <a href="join.html" class="btn-nav">Start Learning Free</a>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-label">
+                        <span>Beginner</span><span style="color:var(--neon-green)">0 / 9 lessons</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <div class="progress-label" style="margin-top:4px">
+                        <span style="color:var(--text-muted)">Complete all lessons to unlock Intermediate tier</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><span class="logo-icon">⬡</span><span class="logo-text">Drift</span></div>
+            <div class="footer-links">
+                <a href="index.html">Home</a><a href="invest.html">Invest</a>
+                <a href="learn.html">Learn</a><a href="security.html">Security</a><a href="join.html">Join</a>
+            </div>
+            <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.learn-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                cards.forEach(c => {
+                    const show = filter === 'all' || c.dataset.cat === filter;
+                    c.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
