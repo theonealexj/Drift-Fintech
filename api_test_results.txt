@@ -1,0 +1,13 @@
+getData params={}: {"status":false,"error":"Missing parameter"}
+getData params={'symbol': 'BTC'}: {"status":"success","symbols":[{"symbol":"BTC","last":"67958.1","last_btc":"1","lowest":"67809.78","highest":"68401.7","date":"2026-02-22 16:10:24","daily_change_percentage":"-0.37105343404014","sourc
+getData params={'symbol': 'BTC', 'currency': 'USD'}: {"status":"success","symbols":[{"symbol":"BTC","last":"67958.09","last_btc":"1","lowest":"67809.78","highest":"68401.7","date":"2026-02-22 16:10:30","daily_change_percentage":"-0.37106809438919","sour
+getData params={'symbol': 'BTCUSDT'}: {"status":"success","symbols":[]}
+getData params={'coin': 'BTC'}: {"status":false,"error":"Missing parameter"}
+getData params={'id': 'bitcoin'}: {"status":false,"error":"Missing parameter"}
+getHistory params={'symbol': 'BTC'}: {"status":false,"error":"Missing parameter"}
+getHistory params={'symbol': 'BTC', 'days': 30}: {"status":false,"error":"No access. Please upgrade your subscription"}
+getHistory params={'symbol': 'BTC', 'n': 30}: {"status":false,"error":"Missing parameter"}
+getOHLC params={'symbol': 'BTC'}: {"status":false,"error":"Your plan does not include historical data. Please upgrade."}
+getOHLC params={'symbol': 'BTC', 'days': 30}: {"status":false,"error":"Your plan does not include historical data. Please upgrade."}
+getTechnicalAnalysis params={'symbol': 'BTC'}: {"status":false,"error":"No access. Please upgrade your subscription"}
+getPerformance params={'symbol': 'BTC'}: {"status":false,"error":"No access. Please upgrade your subscription"}

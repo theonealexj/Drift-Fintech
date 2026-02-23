@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – Drift</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 120px auto 60px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .coin-card {
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .coin-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .coin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .coin-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .coin-icon {
+            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coin-symbol {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .coin-signal {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .signal-BUY {
+            background: rgba(0, 255, 136, 0.15);
+            color: #00ff88;
+        }
+
+        .signal-HOLD {
+            background: rgba(255, 159, 67, 0.15);
+            color: #ff9f43;
+        }
+
+        .signal-SELL {
+            background: rgba(255, 77, 77, 0.15);
+            color: #ff4d4d;
+        }
+
+        .coin-confidence {
+            margin-bottom: 24px;
+        }
+
+        .confidence-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .confidence-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #4da6ff);
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .chart-container {
+            height: 180px;
+            margin-top: 20px;
+        }
+
+        .sentiment-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050514;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tabs Styling */
+        .dashboard-tabs {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 2px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 4px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: #00ff88;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease both;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .learn-asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .learn-asset-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .learn-asset-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.2);
+        }
+
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .news-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .news-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .news-meta {
+            font-size: 12px;
+            color: #00ff88;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        /* Expanded Nav & New Components */
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px 0;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links a {
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a.active {
+            color: #00ff88;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 12px 0;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-trend {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .trend-up {
+            color: #00ff88;
+        }
+
+        .trend-down {
+            color: #ff4d4d;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-active {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .form-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .switch-input {
+            display: none;
+        }
+
+        .switch-label {
+            width: 44px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .switch-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .switch-input:checked+.switch-label {
+            background: #00ff88;
+        }
+
+        .switch-input:checked+.switch-label::after {
+            transform: translateX(22px);
+        }
+
+        .range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #00ff88;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .lesson-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .xp-points {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 10px;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .activity-log {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid transparent;
+        }
+
+        .activity-info {
+            border-left-color: #4da6ff;
+        }
+
+        .activity-success {
+            border-left-color: #00ff88;
+        }
+
+        .activity-alert {
+            border-left-color: #ff4d4d;
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .strategy-card.active {
+            background: rgba(0, 255, 136, 0.08);
+            border-color: #00ff88;
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.15);
+        }
+
+        .strategy-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: #00ff88;
+            font-weight: 800;
+        }
+
+        .strategy-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .strategy-card.active .strategy-icon {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 32px;
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 24px;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader-spinner"></div>
+        <p style="color: #aaa; font-weight: 500;" id="loaderStatus">Analyzing live market data...</p>
+        <button onclick="document.getElementById('loadingOverlay').style.display='none'"
+            style="margin-top:20px; background:transparent; border:1px solid #444; color:#666; font-size:11px; padding:5px 10px; cursor:pointer; border-radius:4px;">Force
+            Reveal Dashboard</button>
+    </div>
+
+    <!-- On-Screen Debug -->
+    <div id="debugConsole"
+        style="position:fixed; bottom:0; left:0; width:100%; height:100px; background:#000; color:#0f0; font-family:monospace; font-size:11px; padding:10px; overflow-y:auto; z-index:10000; border-top:1px solid #333; opacity:0.9; pointer-events:auto; display:block !important;">
+        [SYSTEM] Drift Dashboard Debug Ready.
+    </div>
+
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">Drift</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" onclick="switchTab('home')">Dashboard</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('invest')">Invest</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('learn')">Learn</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('risk')">Risk & Insights</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('alerts')">Alerts</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('goals')">Goals</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('community')">Community</a></li>
+                <li><a href="#" class="nav-link" onclick="switchTab('settings')">Settings</a></li>
+            </ul>
+            <div class="nav-cta"><a href="#" onclick="logout()" class="btn-nav">Sign Out</a></div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <!-- Dashboard (Home) Tab -->
+        <div id="homeTab" class="tab-content active">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Welcome back, Alex</h2>
+                <p style="color: #aaa;">Your Volatility Shield is currently <span
+                        class="status-badge badge-active">Active</span></p>
+            </div>
+
+            <div class="prediction-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="metric-card">
+                    <div class="metric-label">Total Portfolio Value</div>
+                    <div class="metric-value">₹1,42,500</div>
+                    <div class="metric-trend trend-up">↑ ₹4,230 (3.2%) <span
+                            style="font-weight: 400; color: #666; font-size: 12px; margin-left: 8px;">Today</span></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Micro-Invest Streak</div>
+                    <div class="metric-value">14 Days</div>
+                    <div class="metric-trend" style="color: #ff9f43;">🔥 Keep it up! </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Allocation Strategy</div>
+                    <div class="metric-value">Balanced</div>
+                    <div class="metric-trend" style="color: #aaa;">60% Stable | 40% Diversified</div>
+                </div>
+            </div>
+
+            <div class="sentiment-card" style="margin-top: 32px;">
+                <div style="flex: 1;">
+                    <h4 style="margin-bottom: 8px;">Monthly Progress</h4>
+                    <p style="color: #aaa; font-size: 14px;">You've invested <strong>₹430</strong> this month through
+                        round-ups and SIP.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 24px; font-weight: 800; color: #00ff88;">₹430</div>
+                    <div style="font-size: 10px; color: #666; font-weight: 700; text-transform: uppercase;">February
+                        Total</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invest Tab -->
+        <div id="investTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Investment Controls</h2>
+                <p style="color: #aaa;">Simple, automated, and effective.</p>
+            </div>
+
+            <div class="prediction-grid">
+                <div class="metric-card">
+                    <h4 style="margin-bottom: 20px;">Automation Settings</h4>
+                    <div class="form-switch">
+                        <span>Round-up Investing</span>
+                        <input type="checkbox" id="roundupToggle" class="switch-input" checked>
+                        <label for="roundupToggle" class="switch-label"></label>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 14px; font-weight: 600;">Daily SIP Amount</span>
+                            <span style="color: #00ff88; font-weight: 800;">₹<span id="sipValueDisplay">25</span></span>
+                        </div>
+                        <input type="range" min="10" max="50" value="25" class="range-slider" id="sipSlider"
+                            oninput="document.getElementById('sipValueDisplay').innerText = this.value">
+                        <div style="display: flex; justify-content: space-between; font-size: 10px; color: #666;">
+                            <span>₹10</span>
+                            <span>₹50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h4 style="margin-bottom: 20px;">Allocation Strategy</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="strategy-card active" onclick="selectStrategy(this, 'Safe')">
+                            <div class="strategy-icon">🛡️</div>
+                            <div>
+                                <div style="font-weight: 800; font-size: 15px;">SAFE</div>
+                                <div style="font-size: 12px; color: #aaa;">100% Stablecoins (Zero Volatility)</div>
+                            </div>
+                        </div>
+                        <div class="strategy-card" onclick="selectStrategy(this, 'Balanced')">
+                            <div class="strategy-icon">⚖️</div>
+                            <div>
+                                <div style="font-weight: 800; font-size: 15px;">BALANCED</div>
+                                <div style="font-size: 12px; color: #aaa;">Stable + BTC + ETH (Moderate Growth)</div>
+                            </div>
+                        </div>
+                        <div class="strategy-card" onclick="selectStrategy(this, 'Growth')">
+                            <div class="strategy-icon">🚀</div>
+                            <div>
+                                <div style="font-weight: 800; font-size: 15px;">GROWTH</div>
+                                <div style="font-size: 12px; color: #aaa;">Top 5 Assets (Maximum Potential)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="confirmInvestment()">Confirm & Invest Now</button>
+                    <p style="font-size: 11px; color: #666; text-align: center; margin-top: 12px;">
+                        Funds will be deducted from your linked ICICI bank account.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn Tab -->
+        <div id="learnTab" class="tab-content">
+            <div style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Learning Hub</h2>
+                    <p style="color: #aaa;">Master the basics. Unlock the future.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 20px; font-weight: 800; color: #ff9f43;">Level 4</div>
+                    <div style="font-size: 11px; color: #aaa;">1,250 / 2,000 XP to next level</div>
+                </div>
+            </div>
+
+            <div
+                style="margin-bottom: 32px; background: rgba(0, 255, 136, 0.05); padding: 20px; border-radius: 16px; border: 1px solid rgba(0,255,136,0.1);">
+                <h4 style="color: #00ff88; margin-bottom: 8px;">Market Commentary</h4>
+                <p style="color: #fff; font-size: 14px; line-height: 1.6;">"Bitcoin is testing institutional support
+                    levels at $95k. Stablecoins are seeing high demand as investors wait for Fed commentary on rate
+                    hikes."</p>
+            </div>
+
+            <div class="prediction-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <div class="lesson-card">
+                    <span class="xp-points">+50 XP</span>
+                    <h4 style="margin-bottom: 8px;">What is a Stablecoin?</h4>
+                    <p style="color: #aaa; font-size: 13px; margin-bottom: 16px;">Understanding how tokens stay pegged
+                        to the Dollar.</p>
+                    <a href="bitcoin_101.pdf" target="_blank"
+                        style="color: #00ff88; font-weight: 700; font-size: 12px; text-decoration: none;">START 1-MIN
+                        LESSON →</a>
+                </div>
+                <div class="lesson-card">
+                    <span class="xp-points">+75 XP</span>
+                    <h4 style="margin-bottom: 8px;">Bitcoin Halving 101</h4>
+                    <p style="color: #aaa; font-size: 13px; margin-bottom: 16px;">Why BTC supply matters for long-term
+                        growth.</p>
+                    <a href="bitcoin_101.pdf" target="_blank"
+                        style="color: #00ff88; font-weight: 700; font-size: 12px; text-decoration: none;">START 1-MIN
+                        LESSON →</a>
+                </div>
+                <div class="lesson-card" style="opacity: 0.5;">
+                    <h4 style="margin-bottom: 8px;">Diversified Portfolios</h4>
+                    <p style="color: #aaa; font-size: 13px; margin-bottom: 16px;">Locked until Level 5.</p>
+                    <span style="color: #666; font-size: 12px;">🔒 Complete 2 more lessons</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk & Insights (Market Intelligence) -->
+        <div id="riskTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Risk & Insights</h2>
+                <p style="color: #aaa;">AI models processing 50+ technical and macro indicators.</p>
+            </div>
+
+            <div class="prediction-grid"
+                style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 32px;">
+                <div class="metric-card" style="padding: 16px; text-align: center;">
+                    <div class="metric-label">Market Regime</div>
+                    <div style="font-size: 20px; font-weight: 800; margin: 8px 0; color: #00ff88;">Moderate Bull</div>
+                </div>
+                <div class="metric-card" style="padding: 16px; text-align: center;">
+                    <div class="metric-label">Portfolio Risk</div>
+                    <div style="font-size: 20px; font-weight: 800; margin: 8px 0; color: #ff9f43;">Low-Med</div>
+                </div>
+                <div class="metric-card" style="padding: 16px; text-align: center;">
+                    <div class="metric-label">VIX (Volatility Index)</div>
+                    <div style="font-size: 20px; font-weight: 800; margin: 8px 0;">18.42</div>
+                </div>
+                <div class="metric-card" style="padding: 16px; text-align: center;">
+                    <div class="metric-label">BTC Dominance</div>
+                    <div style="font-size: 20px; font-weight: 800; margin: 8px 0;">58.2%</div>
+                </div>
+            </div>
+
+            <div class="prediction-grid" id="predictionGrid">
+                <!-- Data from loadPredictions() -->
+            </div>
+
+            <div class="sentiment-card" style="margin-top: 32px; margin-bottom: 40px;">
+                <div style="flex: 1;">
+                    <h4 style="margin-bottom: 8px;">Market Sentiment</h4>
+                    <p style="color: #aaa; font-size: 14px;">Fear & Greed Index sourced from multiple social and volume
+                        data points.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 32px; font-weight: 800;" id="fgValue">75</div>
+                    <div id="fgLabel" style="color: #00ff88; font-weight: 700; text-transform: uppercase;">Greed</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 18px; color: #00ff88; margin-bottom: 16px;">Latest Market Pulse</h4>
+                <div class="news-grid">
+                    <div class="news-item">
+                        <div style="flex: 1;">
+                            <div class="news-meta">Breaking • 5m ago</div>
+                            <h4 style="margin-bottom: 8px;">Bitcoin Surges Past $98k as ETF Inflows Hit Record High</h4>
+                            <p style="color: #aaa; font-size: 14px;">Institutional demand continues to drive the market
+                                as spot ETFs see unprecedented volume...</p>
+                        </div>
+                    </div>
+                    <div class="news-item">
+                        <div style="flex: 1;">
+                            <div class="news-meta">Macro • 2h ago</div>
+                            <h4 style="margin-bottom: 8px;">Fed Maintains Rates: What it Means for Risk Assets</h4>
+                            <p style="color: #aaa; font-size: 14px;">Analyst breakdown on how the latest FOMC meeting
+                                impacts crypto volatility in the short term.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts / Activity -->
+        <div id="alertsTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Activity Log</h2>
+                <p style="color: #aaa;">Real-time transparency on every action.</p>
+            </div>
+
+            <div class="activity-log">
+                <div class="activity-item activity-success">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="font-weight: 700;">Micro-invest Successful</span>
+                        <span style="color: #666; font-size: 11px;">10:30 AM Today</span>
+                    </div>
+                    <div style="font-size: 14px; color: #aaa;">₹25 daily SIP invested. Allocation: Balanced.</div>
+                </div>
+                <div class="activity-item activity-alert">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="font-weight: 700; color: #ff4d4d;">Volatility Shield Trigger</span>
+                        <span style="color: #666; font-size: 11px;">Yesterday</span>
+                    </div>
+                    <div style="font-size: 14px; color: #aaa;">BTC dropped 8% in 4h. Assets moved to Stable mode
+                        temporarily.</div>
+                </div>
+                <div class="activity-item activity-info">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="font-weight: 700; color: #4da6ff;">Strategy Updated</span>
+                        <span style="color: #666; font-size: 11px;">2 days ago</span>
+                    </div>
+                    <div style="font-size: 14px; color: #aaa;">You changed your risk preference to 'Balanced'.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals Tab -->
+        <div id="goalsTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Goal-Based Investing</h2>
+                <p style="color: #aaa;">Stop speculating. Start building.</p>
+            </div>
+
+            <div class="prediction-grid">
+                <div class="metric-card">
+                    <h4 style="margin-bottom: 20px;">Current Goal: First ₹50k</h4>
+                    <div style="margin: 24px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 12px; color: #aaa;">Progress</span>
+                            <span style="font-weight: 800; color: #fff;">₹14,250 / ₹50,000</span>
+                        </div>
+                        <div class="confidence-bar" style="height: 10px;">
+                            <div class="confidence-fill" style="width: 28.5%;"></div>
+                        </div>
+                    </div>
+                    <div style="font-size: 13px; color: #aaa;">Estimated completion: <strong>18 months</strong> at
+                        current rate.</div>
+                </div>
+
+                <div class="metric-card">
+                    <h4 style="margin-bottom: 20px;">Projections</h4>
+                    <p style="color: #aaa; font-size: 13px; margin-bottom: 20px;">To reach your goal faster (in 12
+                        months), you need to increase your micro-invest to <strong>₹45/day</strong>.</p>
+                    <button class="btn-nav" style="width: 100%;">Optimize Micro-Invest</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Tab -->
+        <div id="communityTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Community</h2>
+                <p style="color: #aaa;">Grow together with campus groups.</p>
+            </div>
+            <div class="metric-card" style="text-align: center; padding: 60px;">
+                <div style="font-size: 48px; margin-bottom: 24px;">🏢</div>
+                <h4>IIT Bombay Investors</h4>
+                <p style="color: #aaa; margin: 12px 0 24px;">Join your campus group to see shared learning progress.</p>
+                <button class="btn-nav">Join Group</button>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settingsTab" class="tab-content">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 4px;">Settings</h2>
+                <p style="color: #aaa;">Manage your account and preferences.</p>
+            </div>
+            <div class="metric-grid" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="activity-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Bank Account (ICICI Bank)</span>
+                    <span style="color: #00ff88; font-weight: 700;">Connected</span>
+                </div>
+                <div class="activity-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>KYC Status</span>
+                    <span style="color: #00ff88; font-weight: 700;">Verified</span>
+                </div>
+                <div class="activity-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Two-Factor Authentication</span>
+                    <span style="color: #ff4d4d; font-weight: 700;">Enabled</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><span class="logo-icon">⬡</span><span class="logo-text">Drift</span></div>
+            <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd. | AI-Powered Intelligence</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const diagLog = (msg) => {
+            const el = document.getElementById('debugConsole');
+            if (el) el.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+            console.log('[DIAG]', msg);
+        };
+        diagLog('Diagnostic system online.');
+
+        // Fail-safe: Hide loader after 120 seconds regardless
+        setTimeout(() => {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay && overlay.style.display !== 'none') {
+                diagLog('CRITICAL: Manual timeout triggered.');
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 500);
+            }
+        }, 120000);
+
+        async function loadPredictions() {
+            try {
+                const isLocalFile = window.location.protocol === 'file:';
+                const apiUrl = isLocalFile ? 'http://localhost:8000/api/predictions' : '/api/predictions';
+
+                diagLog(`Init load via ${isLocalFile ? 'Absolute' : 'Relative'} URL...`);
+                document.getElementById('loaderStatus').innerText = "Connecting to market engine...";
+
+                const response = await fetch(apiUrl).catch(e => {
+                    diagLog('Network error: ' + e.message);
+                    return { ok: false };
+                });
+
+                if (!response.ok) {
+                    diagLog('Server unreachable. Loading demo mode...');
+                    return loadDemoData();
+                }
+
+                document.getElementById('loaderStatus').innerText = "Processing live signals...";
+                const data = await response.json();
+                diagLog('Data received successfully.');
+
+                if (data.error) throw new Error(data.error);
+
+                document.getElementById('fgValue').textContent = data.sentiment.fear_greed;
+                const fgLabel = data.sentiment.fear_greed > 75 ? 'Extreme Greed' :
+                    data.sentiment.fear_greed > 55 ? 'Greed' :
+                        data.sentiment.fear_greed > 45 ? 'Neutral' :
+                            data.sentiment.fear_greed > 25 ? 'Fear' : 'Extreme Fear';
+                document.getElementById('fgLabel').textContent = fgLabel;
+                diagLog(`Sentiment Sync: ${fgLabel}`);
+
+                const grid = document.getElementById('predictionGrid');
+                grid.innerHTML = '';
+
+                Object.values(data.predictions).forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'coin-card glass-card';
+                    card.innerHTML = `
+                        <div class="coin-header" style="margin-bottom: 20px;">
+                            <div class="coin-name-wrap">
+                                <div class="coin-icon">${symToIcon(p.symbol)}</div>
+                                <span class="coin-symbol" style="font-size: 24px;">${p.symbol}</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="coin-signal signal-${p.signal.split(' ')[0]}" style="font-size: 16px; padding: 6px 12px;">${p.signal}</div>
+                                <div style="font-size: 10px; color: #5a5a80; margin-top: 4px; font-weight: 700;">MODEL ID: XG-0822</div>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                            <div style="background: rgba(255, 77, 77, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 77, 77, 0.08);">
+                                <div style="font-size: 10px; color: #ff4d4d; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Sell Prob</div>
+                                <div style="font-size: 18px; font-weight: 800; color: #fff; font-family: 'Space Grotesk';">${p.probs.sell}%</div>
+                            </div>
+                            <div style="background: rgba(255, 159, 67, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 159, 67, 0.08);">
+                                <div style="font-size: 10px; color: #ff9f43; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Hold Prob</div>
+                                <div style="font-size: 18px; font-weight: 800; color: #fff; font-family: 'Space Grotesk';">${p.probs.hold}%</div>
+                            </div>
+                            <div style="background: rgba(0, 255, 136, 0.03); padding: 12px; border-radius: 12px; border: 1px solid rgba(0, 255, 136, 0.08);">
+                                <div style="font-size: 10px; color: #00ff88; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Buy Prob</div>
+                                <div style="font-size: 18px; font-weight: 800; color: #fff; font-family: 'Space Grotesk';">${p.probs.buy}%</div>
+                            </div>
+                        </div>
+
+                        <div class="coin-confidence" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px;">
+                            <div class="confidence-label" style="margin-bottom: 10px;">
+                                <span style="font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Signal Meta-Confidence</span>
+                                <span style="color: #fff; font-weight: 800;">${p.confidence}%</span>
+                            </div>
+                            <div class="confidence-bar" style="height: 4px;"><div class="confidence-fill" style="width: ${p.confidence}%"></div></div>
+                        </div>
+
+                        <div class="chart-container" style="height: 100px; opacity: 0.8;"><canvas id="chart-${p.symbol}"></canvas></div>
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; font-size: 10px; color: #5a5a80; font-weight: 600;">
+                            <span>PERIOD: 4 HOURS</span>
+                            <span>LATENCY: 120ms</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                    try { initCoinChart(`chart-${p.symbol}`, p.probs); } catch (e) { }
+                });
+                diagLog('Inference Cards Ready.');
+
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 500);
+                    diagLog('DASHBOARD ACTIVE.');
+                }, 800);
+
+            } catch (err) {
+                diagLog('Global Error: ' + err.message);
+                loadDemoData();
+            }
+        }
+
+        function loadDemoData() {
+            diagLog('ENTERING DEMO MODE');
+            const demoData = {
+                sentiment: { fear_greed: 72 },
+                predictions: {
+                    'BTC': { symbol: 'BTC', signal: 'STRONG BUY', confidence: 94.2, probs: { sell: 2.1, hold: 3.7, buy: 94.2 } },
+                    'ETH': { symbol: 'ETH', signal: 'BUY', confidence: 78.5, probs: { sell: 10.2, hold: 11.3, buy: 78.5 } },
+                    'SOL': { symbol: 'SOL', signal: 'HOLD', confidence: 55.4, probs: { sell: 20.1, hold: 55.4, buy: 24.5 } }
+                }
+            };
+
+            document.getElementById('loaderStatus').innerText = "Preparing Demo Environment...";
+
+            // Sync UI
+            document.getElementById('fgValue').textContent = demoData.sentiment.fear_greed;
+            document.getElementById('fgLabel').textContent = "Greed (Demo)";
+
+            const grid = document.getElementById('predictionGrid');
+            grid.innerHTML = '';
+
+            Object.values(demoData.predictions).forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'coin-card glass-card';
+                card.innerHTML = `
+                    <div class="coin-header" style="margin-bottom: 20px;">
+                        <div class="coin-name-wrap">
+                            <div class="coin-icon">${symToIcon(p.symbol)}</div>
+                            <span class="coin-symbol" style="font-size: 24px;">${p.symbol}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="coin-signal signal-${p.signal.split(' ')[0]}" style="font-size: 16px; padding: 6px 12px;">${p.signal}</div>
+                            <div style="font-size: 10px; color: #5a5a80; margin-top: 4px; font-weight: 700;">DEMO DATA</div>
+                        </div>
+                    </div>
+                    <div class="coin-confidence" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px;">
+                        <div class="confidence-label" style="margin-bottom: 10px;">
+                            <span>Signal Confidence</span>
+                            <span>${p.confidence}%</span>
+                        </div>
+                        <div class="confidence-bar" style="height: 4px;"><div class="confidence-fill" style="width: ${p.confidence}%"></div></div>
+                    </div>
+                    <div class="chart-container" style="height: 100px;"><canvas id="chart-${p.symbol}"></canvas></div>
+                `;
+                grid.appendChild(card);
+                initCoinChart(`chart-${p.symbol}`, p.probs);
+            });
+
+            setTimeout(() => {
+                const overlay = document.getElementById('loadingOverlay');
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 500);
+            }, 1000);
+        }
+
+
+        function symToIcon(s) {
+            if (s === 'BTC') return '₿';
+            if (s === 'ETH') return 'Ξ';
+            if (s === 'SOL') return 'S';
+            return '⬡';
+        }
+
+        function initCoinChart(id, probs) {
+            const ctx = document.getElementById(id).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['SELL', 'HOLD', 'BUY'],
+                    datasets: [{
+                        data: [probs.sell, probs.hold, probs.buy],
+                        backgroundColor: [
+                            'rgba(255, 77, 77, 0.2)',
+                            'rgba(255, 159, 67, 0.2)',
+                            'rgba(0, 255, 136, 0.2)'
+                        ],
+                        borderColor: [
+                            '#ff4d4d',
+                            '#ff9f43',
+                            '#00ff88'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: false, max: 100 },
+                        y: {
+                            ticks: { color: '#888', font: { size: 10, weight: 600 } },
+                            grid: { display: false, drawBorder: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        function switchTab(tabId) {
+            // Update navbar links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(`'${tabId}'`)) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update content visibility
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const targetContent = document.getElementById(tabId + 'Tab');
+            if (targetContent) {
+                targetContent.classList.add('active');
+                diagLog(`Switched to tab: ${tabId}`);
+            } else {
+                diagLog(`Error: Tab ID ${tabId}Tab not found`);
+            }
+
+            // If switching to risk tab, ensure data is loaded
+            if (tabId === 'risk') {
+                loadPredictions();
+            }
+        }
+
+        function selectStrategy(el, type) {
+            document.querySelectorAll('.strategy-card').forEach(card => card.classList.remove('active'));
+            el.classList.add('active');
+            diagLog(`Selected Strategy: ${type}`);
+        }
+
+        function confirmInvestment() {
+            const sip = document.getElementById('sipSlider').value;
+            const strategy = document.querySelector('.strategy-card.active h4')?.innerText || 'Selected';
+            alert(`Confirming Investment:\n- Daily SIP: ₹${sip}\n- Strategy: ${strategy}\n\nRedirecting to bank gateway...`);
+            diagLog('Investment confirmation triggered.');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPredictions();
+        });
+    </script>
+</body>
+
+</html>

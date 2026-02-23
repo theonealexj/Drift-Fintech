@@ -34,7 +34,8 @@ def fetch_ohlcv(symbol: str, days: int = HISTORY_DAYS) -> pd.DataFrame | None:
     all_rows, cursor = [], start
     try:
         while cursor < end:
-            r = requests.get(BINANCE_KLINES, params={"symbol": pair, "interval": CANDLE_INTERVAL, "startTime": cursor, "endTime": end, "limit": 1000}, timeout=20)
+            # Disable SSL verification to bypass local issuer certificate issues for demo
+            r = requests.get(BINANCE_KLINES, params={"symbol": pair, "interval": CANDLE_INTERVAL, "startTime": cursor, "endTime": end, "limit": 1000}, timeout=20, verify=False)
             r.raise_for_status()
             batch = r.json()
             if not batch or isinstance(batch, dict): break
@@ -57,21 +58,36 @@ def fetch_macro(days: int = HISTORY_DAYS + 10) -> pd.DataFrame:
     for ticker, label in MACRO_TICKERS.items():
         try:
             df = yf.download(ticker, start=start, end=end, progress=False, auto_adjust=True)
-            if df.empty: continue
-            close = df["Close"].squeeze()
+            if df is None or df.empty: continue
+            
+            # Ensure "Close" exists and isn't empty/None
+            if "Close" not in df.columns: continue
+            close = df["Close"]
+            
+            # Handle cases where Close might be a DataFrame or Series
+            if isinstance(close, pd.DataFrame):
+                close = close.iloc[:, 0]
+            
+            if close.empty: continue
+            
             close.index = pd.to_datetime(close.index).normalize().tz_localize("UTC")
             if label == "vix": frames["vix"] = close
             else: frames[f"{label}_ret"] = close.pct_change() * 100
-        except Exception: pass
+        except Exception as e:
+            print(f"  Macro fetch error for {ticker}: {e}")
+            pass
     return pd.DataFrame(frames).sort_index()
 
 def fetch_fear_greed(days: int = HISTORY_DAYS) -> pd.DataFrame:
     try:
-        r = requests.get("https://api.alternative.me/fng/", params={"limit": 1000}, timeout=15)
+        # Disable SSL verification for sentiment API
+        r = requests.get("https://api.alternative.me/fng/", params={"limit": 1000}, timeout=15, verify=False)
         data = r.json().get("data", [])
         rows = [{"date": pd.Timestamp(int(d["timestamp"]), unit="s", tz="UTC").normalize(), "fg_val": int(d["value"])} for d in data]
         return pd.DataFrame(rows).set_index("date").sort_index()
-    except Exception: return pd.DataFrame()
+    except Exception as e:
+        print(f"  Fear/Greed fetch error: {e}")
+        return pd.DataFrame()
 
 def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     for p in [20, 50, 200]:

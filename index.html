@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drift – Your Spare Change. Your Crypto Future.</title>
+  <meta name="description"
+    content="Drift helps college students invest ₹10 at a time in crypto. Start safe with stablecoins, learn as you grow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Drift</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-active">Home</a></li>
+        <li><a href="invest.html">Invest</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="join.html">Join</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="join.html" class="btn-nav">Get Early Access</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge float-anim">
+        <span class="badge-dot"></span>
+        <span>Now in Beta · Join 12,000+ early investors</span>
+      </div>
+      <h1 class="hero-headline">
+        Your Spare Change.<br />
+        <span class="gradient-text">Your Crypto Future.</span>
+      </h1>
+      <p class="hero-sub">Invest ₹10 at a time. Learn as you grow. No finance degree required.</p>
+      <div class="hero-cta">
+        <a href="join.html" class="btn-primary">
+          <span>Start Investing</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="invest.html" class="btn-secondary">
+          <span class="play-icon">▶</span>
+          See How It Works
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value">₹10</span>
+          <span class="stat-label">Minimum Investment</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">0%</span>
+          <span class="stat-label">Hidden Fees</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">256-bit</span>
+          <span class="stat-label">Encryption</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orbiting Coins -->
+    <div class="coin-orbit-system" id="coinOrbit">
+      <div class="orbit-center-glow"></div>
+      <div class="orbit-ring ring-1"></div>
+      <div class="orbit-ring ring-2"></div>
+      <div class="orbit-ring ring-3"></div>
+      <div class="coin-wrapper coin-btc orbit-1">
+        <div class="crypto-coin coin-glow-orange">
+          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg" alt="BTC"
+            onerror="this.style.display='none';this.parentElement.innerHTML='<span class=coin-fallback>₿</span>'" />
+        </div>
+        <div class="coin-label">BTC</div>
+      </div>
+      <div class="coin-wrapper coin-eth orbit-2">
+        <div class="crypto-coin coin-glow-blue">
+          <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg" alt="ETH"
+            onerror="this.style.display='none';this.parentElement.innerHTML='<span class=coin-fallback>Ξ</span>'" />
+        </div>
+        <div class="coin-label">ETH</div>
+      </div>
+      <div class="coin-wrapper coin-usdc orbit-3">
+        <div class="crypto-coin coin-glow-green">
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.svg" alt="USDC"
+            onerror="this.style.display='none';this.parentElement.innerHTML='<span class=coin-fallback>$</span>'" />
+        </div>
+        <div class="coin-label">USDC</div>
+      </div>
+      <div class="coin-wrapper coin-sol orbit-2b">
+        <div class="crypto-coin coin-glow-purple">
+          <img src="https://cryptologos.cc/logos/solana-sol-logo.svg" alt="SOL"
+            onerror="this.style.display='none';this.parentElement.innerHTML='<span class=coin-fallback>◎</span>'" />
+        </div>
+        <div class="coin-label">SOL</div>
+      </div>
+      <div class="price-chip chip-1 float-anim-slow">
+        <span class="chip-coin">BTC</span><span class="chip-price">₹65.2L</span><span
+          class="chip-change positive">+2.4%</span>
+      </div>
+      <div class="price-chip chip-2 float-anim-med">
+        <span class="chip-coin">ETH</span><span class="chip-price">₹2.8L</span><span
+          class="chip-change positive">+1.8%</span>
+      </div>
+      <div class="price-chip chip-3 float-anim-slow">
+        <span class="chip-coin">USDC</span><span class="chip-price">₹84.2</span><span
+          class="chip-change neutral">Stable</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-label">Simple as 1-2-3</div>
+      <h2 class="section-title">How <span class="gradient-text">Drift</span> Works</h2>
+      <p class="section-sub">Three steps. Zero finance knowledge needed. Start in minutes.</p>
+      <div class="how-cards">
+        <div class="how-card glass-card float-card" data-delay="0">
+          <div class="card-number">01</div>
+          <div class="card-icon-wrap icon-blue">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <path d="M2 10h20" />
+            </svg>
+          </div>
+          <h3>Connect Your Bank</h3>
+          <p>Securely link your UPI or bank account in 60 seconds. Bank-grade encryption keeps your data safe.</p>
+          <div class="card-badge">2-Minute Setup</div>
+        </div>
+        <div class="how-card glass-card float-card" data-delay="150">
+          <div class="card-number">02</div>
+          <div class="card-icon-wrap icon-green">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+              <polyline points="17 6 23 6 23 12" />
+            </svg>
+          </div>
+          <h3>Auto-Invest in Stablecoins</h3>
+          <p>We round-up your transactions and auto-invest the spare change into USDC stablecoins. Safe, steady, smart.
+          </p>
+          <div class="card-badge">₹10 Minimum</div>
+        </div>
+        <div class="how-card glass-card float-card" data-delay="300">
+          <div class="card-number">03</div>
+          <div class="card-icon-wrap icon-purple">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+          </div>
+          <h3>Learn &amp; Grow</h3>
+          <p>Bite-sized lessons appear as your portfolio grows. Understand every rupee you invest.</p>
+          <div class="card-badge">Daily Insights</div>
+        </div>
+      </div>
+
+      <!-- Page nav CTA -->
+      <div class="page-nav-cta">
+        <a href="invest.html" class="btn-primary">
+          Explore Features
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <span class="logo-icon">⬡</span><span class="logo-text">Drift</span>
+      </div>
+      <p class="footer-tagline">Making crypto investing a college habit.</p>
+      <div class="footer-links">
+        <a href="security.html">Privacy Policy</a>
+        <a href="security.html">Terms of Service</a>
+        <a href="security.html">Risk Disclosure</a>
+        <a href="join.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd. Made with ♥ for India's next generation investors.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

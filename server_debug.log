@@ -1,0 +1,131 @@
+2026-02-22 21:17:51,000 - INFO - Received request for /api/predictions
+2026-02-22 21:17:51,001 - INFO - Fetching macro and sentiment data...
+2026-02-22 21:18:04,920 - INFO - Processing symbol: BTC
+2026-02-22 21:18:16,387 - INFO - Processing symbol: ETH
+2026-02-22 21:18:24,060 - INFO - Processing symbol: SOL
+2026-02-22 21:18:31,477 - INFO - Predictions complete. Market Score: 49.37082454562187
+2026-02-22 21:21:30,208 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 21:21:30,242 - INFO - Fetching macro and sentiment data...
+2026-02-22 21:21:44,011 - INFO - Processing symbol: BTC
+2026-02-22 21:21:55,141 - INFO - Processing symbol: ETH
+2026-02-22 21:22:03,631 - INFO - Processing symbol: SOL
+2026-02-22 21:22:12,609 - INFO - Predictions complete. Market Score: 47.969150294860206
+2026-02-22 21:22:12,638 - INFO - Serving predictions from cache
+2026-02-22 21:32:45,701 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 21:32:45,711 - INFO - Fetching macro and sentiment data...
+2026-02-22 21:33:02,696 - INFO - Processing symbol: BTC
+2026-02-22 21:33:33,612 - INFO - Processing symbol: ETH
+2026-02-22 21:33:48,000 - INFO - Processing symbol: SOL
+2026-02-22 21:33:57,181 - INFO - Predictions complete. Market Score: 46.724313450977206
+2026-02-22 21:37:48,978 - INFO - Serving predictions from cache
+2026-02-22 21:40:16,620 - INFO - Serving predictions from cache
+2026-02-22 21:53:34,342 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 21:53:34,374 - INFO - Fetching macro and sentiment data...
+2026-02-22 21:53:50,851 - INFO - Processing symbol: BTC
+2026-02-22 21:54:04,050 - INFO - Processing symbol: ETH
+2026-02-22 21:54:13,939 - INFO - Processing symbol: SOL
+2026-02-22 21:54:24,466 - INFO - Predictions complete. Market Score: 51.2615003855899
+2026-02-22 21:56:18,363 - INFO - Serving predictions from cache
+2026-02-22 22:02:23,238 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 22:02:23,243 - INFO - Fetching macro and sentiment data...
+2026-02-22 22:02:38,114 - INFO - Processing symbol: BTC
+2026-02-22 22:02:51,439 - INFO - Processing symbol: ETH
+2026-02-22 22:02:58,236 - INFO - Processing symbol: SOL
+2026-02-22 22:03:06,391 - INFO - Predictions complete. Market Score: 51.698646189955376
+2026-02-22 22:06:07,721 - INFO - Serving predictions from cache
+2026-02-22 22:35:28,153 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 22:35:28,178 - INFO - Fetching macro and sentiment data...
+2026-02-22 22:35:45,893 - INFO - Processing symbol: BTC
+2026-02-22 22:35:54,981 - INFO - Processing symbol: ETH
+2026-02-22 22:36:04,523 - INFO - Processing symbol: SOL
+2026-02-22 22:36:13,915 - INFO - Predictions complete. Market Score: 50.86920813191682
+2026-02-22 22:43:27,659 - INFO - Serving predictions from cache
+2026-02-22 22:45:37,624 - INFO - Serving predictions from cache
+2026-02-22 23:18:36,104 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-22 23:18:36,585 - INFO - Fetching macro and sentiment data...
+2026-02-22 23:19:09,921 - INFO - Processing symbol: BTC
+2026-02-22 23:19:29,703 - INFO - Processing symbol: ETH
+2026-02-22 23:19:42,935 - INFO - Processing symbol: SOL
+2026-02-22 23:19:55,603 - INFO - Predictions complete. Market Score: 53.86776775121689
+2026-02-22 23:19:55,689 - INFO - Serving predictions from cache
+2026-02-23 08:36:18,875 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-23 08:36:18,883 - INFO - Fetching macro and sentiment data...
+2026-02-23 08:36:37,491 - ERROR - 
+1 Failed download:
+2026-02-23 08:36:37,492 - ERROR - ['SPY']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:36:37,701 - ERROR - 
+1 Failed download:
+2026-02-23 08:36:37,704 - ERROR - ['QQQ']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:36:37,805 - ERROR - 
+1 Failed download:
+2026-02-23 08:36:37,806 - ERROR - ['DX-Y.NYB']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:36:37,899 - ERROR - 
+1 Failed download:
+2026-02-23 08:36:37,904 - ERROR - ['GC=F']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:36:38,053 - ERROR - 
+1 Failed download:
+2026-02-23 08:36:38,056 - ERROR - ['^VIX']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:36:39,660 - INFO - Processing symbol: BTC
+2026-02-23 08:36:40,823 - WARNING - No row data for BTC
+2026-02-23 08:36:40,824 - INFO - Processing symbol: ETH
+2026-02-23 08:36:41,810 - WARNING - No row data for ETH
+2026-02-23 08:36:41,812 - INFO - Processing symbol: SOL
+2026-02-23 08:36:43,254 - WARNING - No row data for SOL
+2026-02-23 08:36:43,254 - INFO - Predictions complete. Market Score: 50.0
+2026-02-23 08:36:52,037 - INFO - Serving predictions from cache
+2026-02-23 08:36:53,671 - INFO - Serving predictions from cache
+2026-02-23 08:40:41,127 - INFO - Serving predictions from cache
+2026-02-23 08:54:33,012 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-23 08:54:33,063 - INFO - Fetching macro and sentiment data...
+2026-02-23 08:54:35,503 - ERROR - 
+1 Failed download:
+2026-02-23 08:54:35,511 - ERROR - ['SPY']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:54:36,136 - ERROR - 
+1 Failed download:
+2026-02-23 08:54:36,142 - ERROR - ['QQQ']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:54:36,383 - ERROR - 
+1 Failed download:
+2026-02-23 08:54:36,390 - ERROR - ['DX-Y.NYB']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:54:36,598 - ERROR - 
+1 Failed download:
+2026-02-23 08:54:36,607 - ERROR - ['GC=F']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:54:36,808 - ERROR - 
+1 Failed download:
+2026-02-23 08:54:36,811 - ERROR - ['^VIX']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 08:54:40,624 - INFO - Processing symbol: BTC
+2026-02-23 08:54:44,079 - WARNING - No row data for BTC
+2026-02-23 08:54:44,081 - INFO - Processing symbol: ETH
+2026-02-23 08:54:47,558 - WARNING - No row data for ETH
+2026-02-23 08:54:47,559 - INFO - Processing symbol: SOL
+2026-02-23 08:54:48,923 - WARNING - No row data for SOL
+2026-02-23 08:54:48,924 - INFO - Predictions complete. Market Score: 50.0
+2026-02-23 08:55:32,975 - INFO - Serving predictions from cache
+2026-02-23 09:01:17,257 - INFO - Serving predictions from cache
+2026-02-23 09:03:41,419 - INFO - Serving predictions from cache
+2026-02-23 09:03:50,733 - INFO - Serving predictions from cache
+2026-02-23 09:07:53,517 - INFO - Serving predictions from cache
+2026-02-23 09:22:57,603 - INFO - Received request for /api/predictions (Cache miss/expired)
+2026-02-23 09:22:57,651 - INFO - Fetching macro and sentiment data...
+2026-02-23 09:22:58,371 - ERROR - 
+1 Failed download:
+2026-02-23 09:22:58,372 - ERROR - ['SPY']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 09:22:58,767 - ERROR - 
+1 Failed download:
+2026-02-23 09:22:58,768 - ERROR - ['QQQ']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 09:22:58,906 - ERROR - 
+1 Failed download:
+2026-02-23 09:22:58,906 - ERROR - ['DX-Y.NYB']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 09:22:58,981 - ERROR - 
+1 Failed download:
+2026-02-23 09:22:58,982 - ERROR - ['GC=F']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 09:22:59,062 - ERROR - 
+1 Failed download:
+2026-02-23 09:22:59,063 - ERROR - ['^VIX']: TypeError("'NoneType' object is not subscriptable")
+2026-02-23 09:23:01,222 - INFO - Processing symbol: BTC
+2026-02-23 09:23:03,233 - WARNING - No row data for BTC
+2026-02-23 09:23:03,236 - INFO - Processing symbol: ETH
+2026-02-23 09:23:05,226 - WARNING - No row data for ETH
+2026-02-23 09:23:05,232 - INFO - Processing symbol: SOL
+2026-02-23 09:23:06,853 - WARNING - No row data for SOL
+2026-02-23 09:23:06,855 - INFO - Predictions complete. Market Score: 50.0
+2026-02-23 09:25:45,471 - INFO - Serving predictions from cache

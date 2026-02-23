@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invest – Drift</title>
+    <meta name="description"
+        content="Smart Stability Mode, Micro Investing Engine, and Crash Protection — all in one platform." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">Drift</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="invest.html" class="nav-active">Invest</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="security.html">Security</a></li>
+                <li><a href="join.html">Join</a></li>
+            </ul>
+            <div class="nav-cta"><a href="join.html" class="btn-nav">Get Early Access</a></div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Page Hero Banner -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="section-label">Features</div>
+            <h1 class="section-title">How <span class="gradient-text">We Protect & Grow</span><br />Your Money</h1>
+            <p class="section-sub">Stability first. Growth when you're ready. Shields always on.</p>
+        </div>
+    </div>
+
+    <!-- ── SMART STABILITY ── -->
+    <section class="section stability-section" id="stability">
+        <div class="container two-col">
+            <div class="col-text" data-reveal>
+                <div class="section-label">Smart Stability Mode</div>
+                <h2 class="section-title">Start Safe.<br /><span class="gradient-text">Upgrade When Ready.</span></h2>
+                <p class="section-sub">New to crypto? We protect you with our Stability Shield. Your money moves into
+                    stablecoins first — low volatility, always liquid.</p>
+                <div class="stability-steps">
+                    <div class="sstep">
+                        <div class="sstep-dot dot-green"></div>
+                        <div><strong>Stablecoin First</strong>
+                            <p>USDC & DAI — pegged to USD, no wild swings.</p>
+                        </div>
+                    </div>
+                    <div class="sstep sstep-arrow">↓</div>
+                    <div class="sstep">
+                        <div class="sstep-dot dot-blue"></div>
+                        <div><strong>Mid-Tier Assets</strong>
+                            <p>ETH, SOL — slightly higher risk, higher reward.</p>
+                        </div>
+                    </div>
+                    <div class="sstep sstep-arrow">↓</div>
+                    <div class="sstep">
+                        <div class="sstep-dot dot-orange"></div>
+                        <div><strong>High Growth Tier</strong>
+                            <p>BTC, altcoins — for when you're ready to ride.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-visual" data-reveal>
+                <div class="risk-card glass-card">
+                    <div class="risk-header">
+                        <span>Your Risk Level</span>
+                        <span class="risk-badge">Beginner Mode 🛡️</span>
+                    </div>
+                    <div class="risk-meter-wrap">
+                        <div class="risk-meter">
+                            <div class="risk-fill" id="riskFill"></div>
+                            <div class="risk-thumb" id="riskThumb"></div>
+                        </div>
+                        <div class="risk-labels">
+                            <span>🟢 Safe</span><span>🟡 Moderate</span><span>🔴 Degen</span>
+                        </div>
+                    </div>
+                    <div class="fund-flow">
+                        <div class="fund-step fund-active">
+                            <div class="fund-icon">🏦</div><span>Your Balance</span>
+                        </div>
+                        <div class="fund-arrow">→</div>
+                        <div class="fund-step fund-active">
+                            <div class="fund-icon">🛡️</div><span>Stablecoins</span>
+                        </div>
+                        <div class="fund-arrow fund-disabled">→</div>
+                        <div class="fund-step fund-disabled">
+                            <div class="fund-icon">📈</div><span>Growth</span>
+                        </div>
+                    </div>
+                    <p class="risk-note">Upgrade your risk tier anytime from the app.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── MICRO INVESTING ENGINE ── -->
+    <section class="section" id="investing">
+        <div class="container">
+            <div class="section-label">Micro Investing Engine</div>
+            <h2 class="section-title">Every Rupee <span class="gradient-text">Works For You</span></h2>
+            <p class="section-sub">Round-ups, daily SIPs, and smart portfolio tracking — all in one sleek app.</p>
+            <div class="engine-grid">
+                <div class="engine-features">
+                    <div class="engine-card glass-card" data-reveal>
+                        <div class="engine-icon">🔄</div>
+                        <div>
+                            <h4>Round-Up Investing</h4>
+                            <p>Pay ₹47 for chai? We invest ₹3. Effortless micro-investing from every UPI payment.</p>
+                        </div>
+                    </div>
+                    <div class="engine-card glass-card" data-reveal>
+                        <div class="engine-icon">📅</div>
+                        <div>
+                            <h4>₹10/day SIP Mode</h4>
+                            <p>Set a daily Systematic Investment Plan as low as ₹10. Skip any day, no penalty.</p>
+                        </div>
+                    </div>
+                    <div class="engine-card glass-card" data-reveal>
+                        <div class="engine-icon">🎯</div>
+                        <div>
+                            <h4>Goal-Based Investing</h4>
+                            <p>Set a goal — new laptop, travel fund — Drift builds your roadmap.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="engine-visual" data-reveal>
+                    <div class="portfolio-card glass-card">
+                        <div class="portfolio-header">
+                            <span class="portfolio-title">My Portfolio</span>
+                            <span class="portfolio-value">₹4,820</span>
+                        </div>
+                        <div class="portfolio-change positive">+₹340 (7.6%) this month ↑</div>
+                        <div class="pie-wrap">
+                            <svg class="pie-chart" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="pie-ring" cx="50" cy="50" r="38" fill="none" stroke="#00ff88"
+                                    stroke-width="18" stroke-dasharray="131 207" stroke-dashoffset="52" />
+                                <circle class="pie-ring" cx="50" cy="50" r="38" fill="none" stroke="#4da6ff"
+                                    stroke-width="18" stroke-dasharray="59.6 207" stroke-dashoffset="-79" />
+                                <circle class="pie-ring" cx="50" cy="50" r="38" fill="none" stroke="#ff9f43"
+                                    stroke-width="18" stroke-dasharray="35.8 207" stroke-dashoffset="-138.5" />
+                                <circle class="pie-ring" cx="50" cy="50" r="38" fill="none" stroke="#a855f7"
+                                    stroke-width="18" stroke-dasharray="11.9 207" stroke-dashoffset="-174.3" />
+                                <text x="50" y="48" text-anchor="middle" fill="white" font-size="9"
+                                    font-weight="700">Portfolio</text>
+                                <text x="50" y="58" text-anchor="middle" fill="#aaa" font-size="7">Breakdown</text>
+                            </svg>
+                            <div class="pie-legend">
+                                <div class="legend-item"><span class="dot" style="background:#00ff88"></span>USDC 55%
+                                </div>
+                                <div class="legend-item"><span class="dot" style="background:#4da6ff"></span>ETH 25%
+                                </div>
+                                <div class="legend-item"><span class="dot" style="background:#ff9f43"></span>BTC 15%
+                                </div>
+                                <div class="legend-item"><span class="dot" style="background:#a855f7"></span>SOL 5%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-row">
+                            <span class="portfolio-label">Daily SIP</span>
+                            <span class="portfolio-val active-badge">₹10/day ✓</span>
+                        </div>
+                        <div class="portfolio-row">
+                            <span class="portfolio-label">Round-Ups (this week)</span>
+                            <span class="portfolio-val">₹83 invested</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CRASH PROTECTION ── -->
+    <section class="section protection-section" id="protection">
+        <div class="container two-col reversed">
+            <div class="col-visual" data-reveal>
+                <div class="alerts-wrap">
+                    <div class="alert-popup alert-1 glass-card">
+                        <span class="alert-icon">⚠️</span>
+                        <div><strong>Market Drop Detected</strong>
+                            <p>BTC dropped 12% in 4 hours.</p>
+                        </div>
+                    </div>
+                    <div class="alert-popup alert-2 glass-card">
+                        <span class="alert-icon">🛡️</span>
+                        <div><strong>Volatility Shield Activated</strong>
+                            <p>Your funds moved to USDC automatically.</p>
+                        </div>
+                    </div>
+                    <div class="alert-popup alert-3 glass-card">
+                        <span class="alert-icon">📚</span>
+                        <div><strong>Learn: Why prices crash?</strong>
+                            <p>Tap to understand what just happened →</p>
+                        </div>
+                    </div>
+                    <div class="tooltip-popup glass-card">
+                        <h5>🧠 Quick Lesson</h5>
+                        <p>When large holders ("whales") sell, prices drop suddenly. Your shield converts to stablecoins
+                            to protect your gains.</p>
+                        <div class="tooltip-tag">Price Movement 101</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-text" data-reveal>
+                <div class="section-label">Crash Protection</div>
+                <h2 class="section-title">We Guard Your<br /><span class="gradient-text">Portfolio 24/7</span></h2>
+                <p class="section-sub">Our AI engine monitors market volatility in real time. When a crash is detected,
+                    your funds are automatically shielded — and we explain why it happened.</p>
+                <ul class="feature-list">
+                    <li>⚡ Real-time volatility monitoring</li>
+                    <li>🛡️ Auto-convert to stablecoins on dip</li>
+                    <li>📚 Instant educational context for every alert</li>
+                    <li>🔔 Smart push notifications (no spam)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── ROI CALCULATOR ── -->
+    <section class="section calc-section" id="calculator">
+        <div class="container">
+            <div class="section-label">ROI Calculator</div>
+            <h2 class="section-title">See Your <span class="gradient-text">Investment Grow</span></h2>
+            <p class="section-sub">Slide to set your daily SIP amount and expected return — watch the numbers compound
+                in real time.</p>
+
+            <div class="calc-card glass-card">
+                <div class="calc-controls">
+                    <div class="calc-input-group">
+                        <label>Daily Investment</label>
+                        <div class="range-wrap">
+                            <input type="range" id="dailyAmount" min="10" max="500" value="10" step="10"
+                                class="range-input" />
+                            <div class="range-value">₹<span id="dailyDisplay">10</span>/day</div>
+                        </div>
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Expected Annual Return</label>
+                        <div class="range-wrap">
+                            <input type="range" id="returnRate" min="5" max="40" value="15" step="1"
+                                class="range-input" />
+                            <div class="range-value"><span id="returnDisplay">15</span>% p.a.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="calc-result-item">
+                        <span class="result-label">After 1 Year</span>
+                        <span class="result-value" id="year1">₹3,942</span>
+                    </div>
+                    <div class="calc-result-item highlight">
+                        <span class="result-label">After 3 Years</span>
+                        <span class="result-value gradient-text" id="year3">₹14,280</span>
+                    </div>
+                    <div class="calc-result-item">
+                        <span class="result-label">After 5 Years</span>
+                        <span class="result-value" id="year5">₹26,984</span>
+                    </div>
+                </div>
+
+                <div class="bar-chart">
+                    <div class="bar-group">
+                        <div class="bar bar-1" id="bar1"></div>
+                        <span class="bar-label">1Y</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar bar-2" id="bar2"></div>
+                        <span class="bar-label">3Y</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar bar-3" id="bar3"></div>
+                        <span class="bar-label">5Y</span>
+                    </div>
+                </div>
+                <p class="calc-disclaimer">*Projections are illustrative and not financial advice. Crypto markets are
+                    volatile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page nav -->
+    <div class="section" style="padding-top:0">
+        <div class="container" style="text-align:center">
+            <a href="learn.html" class="btn-primary">
+                Explore Learning Hub
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><span class="logo-icon">⬡</span><span class="logo-text">Drift</span></div>
+            <div class="footer-links">
+                <a href="index.html">Home</a><a href="invest.html">Invest</a>
+                <a href="learn.html">Learn</a><a href="security.html">Security</a><a href="join.html">Join</a>
+            </div>
+            <p class="footer-copy">© 2025 Drift Technologies Pvt. Ltd.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
